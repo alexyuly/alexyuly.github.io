@@ -1,6 +1,6 @@
 # Personal website of Alex Yuly
 
-Navigate to [alexyuly.github.io](alexyuly.github.io) to see my personal website.
+Navigate to [alexyuly.github.io](http://alexyuly.github.io) to see my personal website.
 
 It's a sandbox for my programming thoughts and ideas.
 
