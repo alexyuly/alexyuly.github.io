@@ -2,11 +2,9 @@
   "name": "alexyuly-net",
   "version": "1.0.0",
   "description": "Personal website of Alex Yuly",
-  "main": "bin/app.js",
   "repository": "https://github.com/alexyuly/alexyuly.github.io",
   "author": "Alex Yuly <alexyuly2@gmail.com>",
   "license": "MIT",
-  "private": false,
   "devDependencies": {
     "elm": "^0.19.0-bugfix2",
     "uglify-js": "^3.4.9"
