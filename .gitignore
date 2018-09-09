@@ -1,0 +1,6 @@
+elm-stuff/
+node_modules/
+.DS_Store
+app.js
+app-debug.js
+*.log
