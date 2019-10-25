@@ -1,5 +1,5 @@
 html {
-  font-size: 16px;
+  font-size: 12px;
 }
 
 body {
@@ -20,7 +20,7 @@ header {
   align-items: center;
   background-color: var(--color-dark-2);
   display: flex;
-  flex: 0 0 7rem;
+  flex: 0 0 14rem;
   flex-flow: column nowrap;
   justify-content: center;
   z-index: 1;
@@ -28,13 +28,13 @@ header {
 
 header h1 {
   color: var(--color-light-1);
-  font: bold 2.5rem serif;
+  font: bold 5rem serif;
   margin: 0;
 }
 
 header h2 {
   color: var(--color-light-2);
-  font: normal 1.5rem serif;
+  font: normal 3rem serif;
   margin: 0;
 }
 
@@ -48,22 +48,22 @@ main {
 
 main h1 {
   color: var(--color-light-2);
-  font: normal 2rem serif;
+  font: normal 4rem serif;
 }
 
 main ul {
   color: var(--color-light-1);
-  font: bold 4rem serif;
+  font: bold 8rem serif;
   margin: 0;
 }
 
 svg {
-  height: 1000px;
-  left: calc(50vw - 500px);
+  height: 125rem;
+  left: calc(50vw - 62.5rem);
   pointer-events: none;
   position: absolute;
-  top: 7rem;
-  width: 1000px;
+  top: 14rem;
+  width: 125rem;
   z-index: 0;
 }
 
