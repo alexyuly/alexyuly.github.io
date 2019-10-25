@@ -23,6 +23,7 @@ header {
   flex: 0 0 7rem;
   flex-flow: column nowrap;
   justify-content: center;
+  z-index: 1;
 }
 
 header h1 {
@@ -39,17 +40,19 @@ header h2 {
 
 main {
   align-items: center;
-  color: var(--color-light-1);
   display: flex;
   flex: 1 1 auto;
   flex-flow: column nowrap;
+  z-index: 1;
 }
 
 main h1 {
+  color: var(--color-light-2);
   font: normal 2rem serif;
 }
 
 main ul {
+  color: var(--color-light-1);
   font: bold 4rem serif;
   margin: 0;
 }
@@ -57,11 +60,11 @@ main ul {
 svg {
   height: 1000px;
   left: calc(50vw - 500px);
-  opacity: 0.5;
   pointer-events: none;
   position: absolute;
   top: 7rem;
   width: 1000px;
+  z-index: 0;
 }
 
 ellipse, polygon {
