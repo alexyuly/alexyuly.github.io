@@ -1,0 +1,52 @@
+html {
+  font-size: 16px;
+}
+
+body {
+  --color-dark-1: #111111;
+  --color-dark-2: #222222;
+  --color-light-1: #eeeeee;
+  --color-light-2: #aaaaaa;
+  background-color: var(--color-dark-1);
+  display: flex;
+  flex-flow: column nowrap;
+  margin: 0;
+}
+
+header {
+  align-items: center;
+  background-color: var(--color-dark-2);
+  display: flex;
+  flex: 0 0 7rem;
+  flex-flow: column nowrap;
+  justify-content: center;
+}
+
+header h1 {
+  color: var(--color-light-1);
+  font: normal 2.5rem serif;
+  margin: 0;
+}
+
+header h2 {
+  color: var(--color-light-2);
+  font: bold 1.5rem serif;
+  margin: 0;
+}
+
+main {
+  align-items: center;
+  color: var(--color-light-1);
+  display: flex;
+  flex: 1 1 auto;
+  flex-flow: column nowrap;
+}
+
+main h1 {
+  font: normal 2rem serif;
+}
+
+main ul {
+  font: bold 4rem serif;
+  margin: 0;
+}
