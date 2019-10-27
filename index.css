@@ -17,17 +17,30 @@ body {
 
 .frame {
   background-color: var(--color-dark-0);
-  border: 3px solid var(--color-dark-1);
+  border: 1px solid #000000;
   border-radius: 3px;
   color: var(--color-light-0);
   display: flex;
   flex-flow: column nowrap;
   position: absolute;
+  transition: background-color 0.125s ease-in;
+  z-index: 1;
+}
+
+.frame.dragging {
+  background-color: #11111188;
+  transition: background-color 0.125s ease-out;
+}
+
+.frame.focused {
+  z-index: 2;
 }
 
 .frame header {
   align-items: center;
   background-color: var(--color-dark-1);
+  border: 1px solid var(--color-dark-1);
+  box-sizing: border-box;
   color: var(--color-light-1);
   cursor: grab;
   display: flex;
@@ -36,11 +49,13 @@ body {
   height: 30px;
   justify-content: center;
   letter-spacing: 0.5px;
+  transition: background-color 0.125s ease-in, border 0.5s ease-in;
 }
 
 .frame header:hover {
   background-color: var(--color-dark-2);
   border: 1px solid var(--color-light-2);
+  transition: background-color 0.125s ease-out, border 0.125s ease-out;
 }
 
 .frame header.dragging {
@@ -50,13 +65,16 @@ body {
 }
 
 .frame .resize-handle {
+  border: 1px solid transparent;
+  box-sizing: border-box;
   cursor: grab;
   position: absolute;
+  transition: border 0.5s ease-in;
 }
 
 .frame .resize-handle:hover {
-  background-color: var(--color-dark-2);
   border: 1px solid var(--color-light-2);
+  transition: border 0.125s ease-out;
 }
 
 .frame .resize-handle.dragging {
