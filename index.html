@@ -28,7 +28,7 @@ button {
   border: 1px solid #333333;
   color: #EEEEEE;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 1rem;
   margin: 8px;
   padding: 8px;
 }
@@ -49,22 +49,27 @@ button:not(:disabled):active {
 }
 
 .element {
-  background-color: rgba(200,200,200,0.5);
-  border: 1px solid #FFFFFF;
+  background-color: #DDDDDD;
+  border: 2px solid #FFFFFF;
   box-sizing: border-box;
   cursor: pointer;
   margin: 8px;
   padding: 8px;
 }
 
-.selected {
-  background-color: rgba(200,200,200,1);
-  border: 1px solid #AAAAAA;
+.element:hover {
+  background-color: #BBBBBB;
+}
+
+.element.selected {
+  background-color: #99DDFF;
+  border: 2px solid #77BBFF;
 }
 
 section#toolbox {
   background-color: #333333;
-  border: 1px solid #111111;
+  border-right: 1px solid #111111;
+  box-shadow: 2px 0 4px #555555;
   color: #EEEEEE;
   display: flex;
   flex: 0 1 300px;
@@ -75,16 +80,22 @@ section#toolbox {
 }
 
 h1#selection-tagName {
+  font-size: 1.5rem;
+  font-weight: normal;
   margin-bottom: 10px;
   margin-top: 0;
 }
 
 h2#selection-className {
+  font-size: 1.33rem;
+  font-weight: normal;
   margin-bottom: 10px;
   margin-top: 0;
 }
 
 h3#selection-id {
+  font-size: 1rem;
+  font-weight: normal;
   margin-bottom: 10px;
   margin-top: 0;
 }
@@ -107,7 +118,7 @@ main {
   <h2 id="selection-className"></h2>
   <h3 id="selection-id"></h3>
   <button id="append-child" onclick="appendChildToSelection();">
-    Append Child
+    Add Child
   </button>
   <button onclick="insertBeforeSelection();">
     Insert Before
@@ -115,12 +126,9 @@ main {
   <button onclick="removeSelection();">
     Remove
   </button>
-  <button onclick="replaceSelection();">
-    Replace
-  </button>
 </section>
 
-<main>
+<main class="element">
 
 </main>
 
@@ -176,17 +184,6 @@ function insertBeforeSelection() {
 function removeSelection() {
   selection.parentElement.removeChild(selection);
   updateSelection(null);
-}
-
-function replaceSelection() {
-  const child = document.createElement("div");
-  child.className = "element";
-  child.addEventListener("click", function(event) {
-    event.stopPropagation();
-    updateSelection(child === selection ? null : child);
-  });
-  selection.parentElement.replaceChild(child, selection);
-  updateSelection(child);
 }
 
 </script>
