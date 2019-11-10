@@ -37,7 +37,7 @@ button {
 }
 
 button:disabled {
-  color: #888888;
+  color: #999999;
   cursor: initial;
 }
 
@@ -52,36 +52,32 @@ button:not(:disabled):active {
 }
 
 .element {
-  background-color: #999999;
-  border: 2px solid #DDDDDD;
-  box-shadow: 1px 1px 1px #DDDDDD;
+  background-color: #DDDDDD;
+  border: 2px solid #999999;
+  box-shadow: 1px 1px 1px #999999;
   box-sizing: border-box;
   cursor: pointer;
-  margin: 5px;
+  margin: 10px;
   padding: 10px;
 }
 
-.element:hover {
-  background-color: #BBBBBB;
-  border-color: #99DDFF;
-  box-shadow: 1px 1px 1px #99DDFF;
-}
-
 .element:active {
-  background-color: #77BBFF;
+  border-color: #55BBFF;
+  box-shadow: 1px 1px 2px #55BBFF;
 }
 
 .element.selected {
   background-color: #99DDFF;
-  border-color: #77BBFF;
-  box-shadow: 1px 1px 2px #77BBFF;
+  border-color: #55BBFF;
+  box-shadow: 1px 1px 2px #55BBFF;
 }
 
 .element:active.selected {
-  background-color: #BBBBBB;
+  border-color: #999999;
+  box-shadow: 1px 1px 1px #999999;
 }
 
-section#toolbox {
+div#toolbox {
   background-color: #333333;
   border-right: 1px solid #111111;
   box-shadow: 2px 0 4px #555555;
@@ -115,11 +111,14 @@ h3#selection-id {
   margin-bottom: 10px;
 }
 
-main {
-  cursor: pointer;
+#root {
   flex: 1 1 auto;
   overflow: auto;
   position: relative;
+}
+
+#root.element {
+  margin: 0;
 }
 
 </style>
@@ -128,7 +127,7 @@ main {
 
 <body>
 
-<section id="toolbox">
+<div id="toolbox">
   <h1 id="selection-tagName"></h1>
   <h2 id="selection-className"></h2>
   <h3 id="selection-id"></h3>
@@ -141,22 +140,22 @@ main {
   <button onclick="removeSelection();">
     Remove
   </button>
-</section>
+</div>
 
-<main class="element">
+<div class="element" id="root">
 
-</main>
+</div>
 
 <script>
 
 let selection;
 
-const main = document.querySelector("main");
-main.addEventListener("click", function(event) {
+const root = document.querySelector("#root");
+root.addEventListener("click", function(event) {
   event.stopPropagation();
-  updateSelection(main === selection ? null : main);
+  updateSelection(root === selection ? null : root);
 });
-updateSelection(main);
+updateSelection(root);
 
 function updateSelection(newSelection) {
   if (selection) {
