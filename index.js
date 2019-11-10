@@ -1,8 +1,7 @@
 const frames = document.querySelectorAll(".frame");
 
-let i = 0;
-
-for (const frame of frames) {
+for (let i = 0; i < frames.length; i++) {
+  const frame = frames[i];
   const frameHeader = frame.querySelector("header");
   const frameResizeHandleNW = frame.querySelector(".resize-handle.nw");
   const frameResizeHandleNE = frame.querySelector(".resize-handle.ne");
@@ -95,12 +94,12 @@ for (const frame of frames) {
   
   window.addEventListener("mousemove", (event) => {
     if (dragging) {
-      frame.style.left = `${parseFloat(frame.style.left) + event.clientX - lastX}px`;
+      frame.style.left = `${Math.max(0, parseFloat(frame.style.left) + event.clientX - lastX)}px`;
       frame.style.top = `${Math.max(0, parseFloat(frame.style.top) + event.clientY - lastY)}px`;
     } else if (resizingNW) {
-      frame.style.left = `${parseFloat(frame.style.left) + event.clientX - lastX}px`;
+      frame.style.left = `${Math.max(0, parseFloat(frame.style.left) + event.clientX - lastX)}px`;
       frame.style.width = `${parseFloat(frame.style.width) + lastX - event.clientX}px`;
-      frame.style.top = `${parseFloat(frame.style.top) + event.clientY - lastY}px`;
+      frame.style.top = `${Math.max(0, parseFloat(frame.style.top) + event.clientY - lastY)}px`;
       frame.style.height = `${parseFloat(frame.style.height) + lastY - event.clientY}px`;
     } else if (resizingNE) {
       frame.style.width = `${parseFloat(frame.style.width) + event.clientX - lastX}px`;
@@ -138,6 +137,4 @@ for (const frame of frames) {
       frameResizeHandleSW.classList.remove("dragging");
     }
   });
-
-  i++;
 }

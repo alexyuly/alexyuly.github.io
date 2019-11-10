@@ -4,21 +4,25 @@ html {
 }
 
 body {
-  --color-dark-0: #111111;
-  --color-dark-1: #222222;
-  --color-dark-2: #333333;
+  --color-dark-0: #000000;
+  --color-dark-0-translucent: #00000088;
+  --color-dark-1: #111111;
+  --color-dark-1-translucent: #11111188;
+  --color-dark-2: #222222;
+  --color-dark-3: #333333;
   --color-light-0: #eeeeee;
   --color-light-1: #dddddd;
   --color-light-2: #aaaaaa;
-  background-color: var(--color-dark-2);
+  background-color: var(--color-dark-3);
   margin: 0;
   user-select: none;
 }
 
 .frame {
-  background-color: var(--color-dark-0);
-  border: 1px solid #000000;
+  background-color: var(--color-dark-1);
+  border: 1px solid var(--color-dark-0);
   border-radius: 3px;
+  box-shadow: 2px 2px 2px var(--color-dark-0-translucent);
   color: var(--color-light-0);
   display: flex;
   flex-flow: column nowrap;
@@ -28,7 +32,7 @@ body {
 }
 
 .frame.dragging {
-  background-color: #11111188;
+  background-color: var(--color-dark-1-translucent);
   transition: background-color 0.125s ease-out;
 }
 
@@ -38,8 +42,9 @@ body {
 
 .frame header {
   align-items: center;
-  background-color: var(--color-dark-1);
-  border: 1px solid var(--color-dark-1);
+  background-color: var(--color-dark-2);
+  border: 1px solid var(--color-dark-2);
+  border-radius: 3px;
   box-sizing: border-box;
   color: var(--color-light-1);
   cursor: grab;
@@ -53,7 +58,7 @@ body {
 }
 
 .frame header:hover {
-  background-color: var(--color-dark-2);
+  background-color: var(--color-dark-3);
   border: 1px solid var(--color-light-2);
   transition: background-color 0.125s ease-out, border 0.125s ease-out;
 }
@@ -66,6 +71,7 @@ body {
 
 .frame .resize-handle {
   border: 1px solid transparent;
+  border-radius: 3px;
   box-sizing: border-box;
   cursor: grab;
   position: absolute;
