@@ -1,26 +1,196 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>alexyuly.github.io</title>
-    <link href="index.css" rel="stylesheet">
-  </head>
-  <body>
-    <div class="frame">
-      <header>Window 1</header>
-      <main></main>
-      <div class="resize-handle nw"></div>
-      <div class="resize-handle ne"></div>
-      <div class="resize-handle se"></div>
-      <div class="resize-handle sw"></div>
-    </div>
-    <div class="frame">
-      <header>Window 2</header>
-      <main></main>
-      <div class="resize-handle nw"></div>
-      <div class="resize-handle ne"></div>
-      <div class="resize-handle se"></div>
-      <div class="resize-handle sw"></div>
-    </div>
-    <script src="index.js"></script>
-  </body>
+
+<head>
+
+<title>HTML Editor</title>
+
+<style>
+
+html {
+  font-size: 16px;
+  height: 100%;
+}
+
+body {
+  background-color: #FFFFFF;
+  display: flex;
+  flex-flow: row nowrap;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  user-select: none;
+}
+
+button {
+  background-color: #555555;
+  border: 1px solid #333333;
+  color: #EEEEEE;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 8px;
+  padding: 8px;
+}
+
+button:disabled {
+  color: #888888;
+  cursor: initial;
+}
+
+button:not(:disabled):hover {
+  background-color: #333333;
+  border: 1px solid #111111;
+}
+
+button:not(:disabled):active {
+  background-color: #111111;
+  border: 1px solid #000000;
+}
+
+.element {
+  background-color: rgba(200,200,200,0.5);
+  border: 1px solid #FFFFFF;
+  box-sizing: border-box;
+  cursor: pointer;
+  margin: 8px;
+  padding: 8px;
+}
+
+.selected {
+  background-color: rgba(200,200,200,1);
+  border: 1px solid #AAAAAA;
+}
+
+section#toolbox {
+  background-color: #333333;
+  border: 1px solid #111111;
+  color: #EEEEEE;
+  display: flex;
+  flex: 0 1 300px;
+  flex-flow: column nowrap;
+  font: caption;
+  overflow: auto;
+  padding: 10px;
+}
+
+h1#selection-tagName {
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+
+h2#selection-className {
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+
+h3#selection-id {
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+
+main {
+  cursor: pointer;
+  flex: 1 1 auto;
+  overflow: auto;
+  position: relative;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<section id="toolbox">
+  <h1 id="selection-tagName"></h1>
+  <h2 id="selection-className"></h2>
+  <h3 id="selection-id"></h3>
+  <button id="append-child" onclick="appendChildToSelection();">
+    Append Child
+  </button>
+  <button onclick="insertBeforeSelection();">
+    Insert Before
+  </button>
+  <button onclick="removeSelection();">
+    Remove
+  </button>
+  <button onclick="replaceSelection();">
+    Replace
+  </button>
+</section>
+
+<main>
+
+</main>
+
+<script>
+
+let selection;
+
+const main = document.querySelector("main");
+main.addEventListener("click", function(event) {
+  event.stopPropagation();
+  updateSelection(main === selection ? null : main);
+});
+updateSelection(main);
+
+function updateSelection(newSelection) {
+  if (selection) {
+    selection.classList.remove("selected");
+  }
+  
+  selection = newSelection;
+  if (selection) {
+    selection.classList.add("selected");
+  }
+  document.querySelector("#selection-tagName").textContent = selection && selection.tagName ? selection.tagName : "(no element)";
+  document.querySelector("#selection-className").textContent = selection && selection.className ? '.'.concat(Array.from(selection.classList).join('.')) : "(no class)";
+  document.querySelector("#selection-id").textContent = selection && selection.id ? '#'.concat(selection.id) : "(no id)";
+  const toolboxButtons = document.querySelectorAll("#toolbox button");
+  for (const button of toolboxButtons) {
+    button.disabled = (selection && selection.tagName === "MAIN" && button.id !== "append-child") || !selection;
+  }
+}
+
+function appendChildToSelection() {
+  const child = document.createElement("div");
+  child.className = "element";
+  child.addEventListener("click", function(event) {
+    event.stopPropagation();
+    updateSelection(child === selection ? null : child);
+  });
+  selection.appendChild(child);
+}
+
+function insertBeforeSelection() {
+  const child = document.createElement("div");
+  child.className = "element";
+  child.addEventListener("click", function(event) {
+    event.stopPropagation();
+    updateSelection(child === selection ? null : child);
+  });
+  selection.parentElement.insertBefore(child, selection);
+}
+
+function removeSelection() {
+  selection.parentElement.removeChild(selection);
+  updateSelection(null);
+}
+
+function replaceSelection() {
+  const child = document.createElement("div");
+  child.className = "element";
+  child.addEventListener("click", function(event) {
+    event.stopPropagation();
+    updateSelection(child === selection ? null : child);
+  });
+  selection.parentElement.replaceChild(child, selection);
+  updateSelection(child);
+}
+
+</script>
+
+</body>
+
 </html>
