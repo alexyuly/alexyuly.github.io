@@ -8,7 +8,7 @@
 <style>
 
 html {
-  font-size: 16px;
+  font-size: 15px;
   height: 100%;
 }
 
@@ -25,12 +25,15 @@ body {
 
 button {
   background-color: #555555;
-  border: 1px solid #333333;
+  border: 2px solid #333333;
+  border-radius: 4px;
   color: #EEEEEE;
   cursor: pointer;
   font-size: 1rem;
-  margin: 8px;
-  padding: 8px;
+  margin: 0;
+  outline: none;
+  padding: 10px;
+  text-transform: uppercase;
 }
 
 button:disabled {
@@ -40,30 +43,42 @@ button:disabled {
 
 button:not(:disabled):hover {
   background-color: #333333;
-  border: 1px solid #111111;
+  border: 2px solid #111111;
 }
 
 button:not(:disabled):active {
   background-color: #111111;
-  border: 1px solid #000000;
+  border: 2px solid #000000;
 }
 
 .element {
-  background-color: #DDDDDD;
-  border: 2px solid #FFFFFF;
+  background-color: #999999;
+  border: 2px solid #DDDDDD;
+  box-shadow: 1px 1px 1px #DDDDDD;
   box-sizing: border-box;
   cursor: pointer;
-  margin: 8px;
-  padding: 8px;
+  margin: 5px;
+  padding: 10px;
 }
 
 .element:hover {
   background-color: #BBBBBB;
+  border-color: #99DDFF;
+  box-shadow: 1px 1px 1px #99DDFF;
+}
+
+.element:active {
+  background-color: #77BBFF;
 }
 
 .element.selected {
   background-color: #99DDFF;
-  border: 2px solid #77BBFF;
+  border-color: #77BBFF;
+  box-shadow: 1px 1px 2px #77BBFF;
+}
+
+.element:active.selected {
+  background-color: #BBBBBB;
 }
 
 section#toolbox {
@@ -82,22 +97,22 @@ section#toolbox {
 h1#selection-tagName {
   font-size: 1.5rem;
   font-weight: normal;
-  margin-bottom: 10px;
-  margin-top: 0;
+  margin: 0;
+  margin-bottom: 5px;
 }
 
 h2#selection-className {
   font-size: 1.33rem;
   font-weight: normal;
-  margin-bottom: 10px;
-  margin-top: 0;
+  margin: 0;
+  margin-bottom: 5px;
 }
 
 h3#selection-id {
   font-size: 1rem;
   font-weight: normal;
+  margin: 0;
   margin-bottom: 10px;
-  margin-top: 0;
 }
 
 main {
@@ -118,10 +133,10 @@ main {
   <h2 id="selection-className"></h2>
   <h3 id="selection-id"></h3>
   <button id="append-child" onclick="appendChildToSelection();">
-    Add Child
+    Add DIV
   </button>
   <button onclick="insertBeforeSelection();">
-    Insert Before
+    Insert DIV
   </button>
   <button onclick="removeSelection();">
     Remove
