@@ -1,333 +1,42 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-
-<title>HTML Editor</title>
-
-<script>
-
-window.addEventListener("load", function() {
-
-  let preview = false;
-  let selection;
-
-  const appendChildButton = document.querySelector("#append-child");
-  const floatingPreviewToggleButton = document.querySelector("#floating-preview-toggle");
-  const insertBeforeButton = document.querySelector("#insert-before");
-  const previewToggleButton = document.querySelector("#preview-toggle");
-  const removeButton = document.querySelector("#remove");
-  const root = document.querySelector("#root");
-  const selectionClassName = document.querySelector("#selection-class-name");
-  const selectionControlButtons = document.querySelectorAll("#selection-controls button");
-  const selectionTagName = document.querySelector("#selection-tag-name");
-  const toolbox = document.querySelector("#toolbox");
-
-  appendChildButton.addEventListener("click", function(event) {
-    appendChildToSelection();
-  });
-
-  floatingPreviewToggleButton.addEventListener("click", function(event) {
-    togglePreview();
-  });
-
-  insertBeforeButton.addEventListener("click", function(event) {
-    insertBeforeSelection();
-  });
-
-  previewToggleButton.addEventListener("click", function(event) {
-    togglePreview();
-  });
-
-  removeButton.addEventListener("click", function(event) {
-    removeSelection();
-  });
-
-  root.addEventListener("click", function(event) {
-    event.stopPropagation();
-    updateSelection(root === selection ? null : root);
-  });
-
-  updateSelection(null);
-
-  function togglePreview() {
-    if (preview) {
-      floatingPreviewToggleButton.remove();
-      floatingPreviewToggleButton.classList.add("hidden");
-      
-      for (const child of Array.from(document.body.children)) {
-        child.remove();
-        root.appendChild(child);
-      }
-
-      document.body.appendChild(toolbox);
-      document.body.appendChild(root);
-      document.body.appendChild(floatingPreviewToggleButton);
-
-    } else {
-      toolbox.remove();
-      root.remove();
-      floatingPreviewToggleButton.remove();
-      
-      for (const child of Array.from(root.children)) {
-        child.remove();
-        document.body.appendChild(child);
-      }
-
-      document.body.appendChild(floatingPreviewToggleButton);
-      floatingPreviewToggleButton.classList.remove("hidden");
-    }
-
-    preview = !preview;
-  }
-
-  function updateSelection(newSelection) {
-    if (selection) {
-      selection.classList.remove("selected");
-    }
-    
-    selection = newSelection;
-
-    if (selection) {
-      selection.classList.add("selected");
-    }
-
-    selectionTagName.textContent = selection ? selection.tagName.concat(selection.id ? '#'.concat(selection.id) : '') : "No selection";
-    selectionClassName.textContent = !selection ? null : selection.className ? '.'.concat(Array.from(selection.classList).join('.')) : "No class";
-
-    for (const button of selectionControlButtons) {
-      button.disabled = (selection && selection.id === "root" && button.id !== "append-child") || !selection;
-    }
-  }
-
-  function createElement() {
-    const element = document.createElement("div");
-
-    element.className = "element";
-
-    element.addEventListener("click", function(event) {
-      event.stopPropagation();
-      updateSelection(element === selection ? null : element);
-    });
-
-    return element;
-  }
-
-  function appendChildToSelection() {
-    selection.appendChild(createElement());
-  }
-
-  function insertBeforeSelection() {
-    selection.parentElement.insertBefore(createElement(), selection);
-  }
-
-  function removeSelection() {
-    selection.remove();
-    updateSelection(null);
-  }
-});
-
-</script>
-
-<style>
-
-@import url("https://fonts.googleapis.com/css?family=Roboto:400,500");
-
-html {
-  font-family: Roboto, sans-serif;
-  font-size: 15px;
-  height: 100%;
-}
-
-body {
-  background-color: #FFFFFF;
-  display: flex;
-  flex-flow: row nowrap;
-  height: 100%;
-  margin: 0;
-  overflow: hidden;
-  padding: 0;
-  user-select: none;
-}
-
-button {
-  align-items: center;
-  background-color: #555555;
-  border: 1px solid #222222;
-  border-radius: 4px;
-  box-shadow: 1px 1px 2px #222222;
-  color: #EEEEEE;
-  cursor: pointer;
-  display: flex;
-  font-family: Roboto, sans-serif;
-  font-size: 1rem;
-  justify-content: center;
-  margin: 0;
-  outline: none;
-  padding: 10px;
-  text-transform: uppercase;
-}
-
-button:disabled {
-  color: #999999;
-  cursor: initial;
-}
-
-button:not(:disabled):hover {
-  background-color: #333333;
-  border-color: #111111;
-}
-
-button:not(:disabled):active {
-  background-color: #111111;
-  border-color: #000000;
-}
-
-#preview-toggle {
-  height: 50px;
-  width: 50px;
-}
-
-#floating-preview-toggle {
-  background-color: #333333;
-  border-color: #111111;
-  height: 50px;
-  left: 10px;
-  position: fixed;
-  top: 10px;
-  width: 50px;
-}
-
-#floating-preview-toggle:active {
-  background-color: #111111;
-  border-color: #000000;
-}
-
-.hidden {
-  display: none;
-}
-
-#toolbox {
-  background-color: #333333;
-  border-right: 1px solid #111111;
-  box-shadow: 2px 0 4px #555555;
-  color: #EEEEEE;
-  display: flex;
-  flex: 0 1 250px;
-  flex-flow: column nowrap;
-  overflow: auto;
-  padding: 10px;
-  z-index: 1;
-}
-
-.button-group {
-  display: flex;
-  flex-flow: column nowrap;
-  margin-bottom: 5px;
-}
-
-.button-group div {
-  display: flex;
-  flex-flow: column nowrap;
-  margin-bottom: 5px;
-}
-
-.selection {
-  display: flex;
-  flex-flow: column nowrap;
-}
-
-.selection h1,h2 {
-  margin: 0;
-  margin-bottom: 5px;
-}
-
-#selection-tag-name {
-  font-size: 1.5rem;
-  font-weight: 500;
-}
-
-#selection-class-name {
-  font-size: 1.33rem;
-  font-weight: normal;
-}
-
-#root {
-  background-color: #DDDDDD;
-  border: 2px solid #999999;
-  box-shadow: 1px 1px 1px #999999;
-  box-sizing: border-box;
-  cursor: pointer;
-  flex: 1 1 auto;
-  margin: 0;
-  overflow: auto;
-  position: relative;
-  z-index: 0;
-}
-
-#root .element {
-  background-color: #DDDDDD;
-  border: 2px solid #999999;
-  box-shadow: 1px 1px 1px #999999;
-  box-sizing: border-box;
-  cursor: pointer;
-  margin: 10px;
-  padding: 10px;
-}
-
-#root .element:active, #root:active {
-  border-color: #55BBFF;
-  box-shadow: 1px 1px 2px #55BBFF;
-}
-
-#root .element.selected, #root.selected {
-  background-color: #99DDFF;
-  border-color: #55BBFF;
-  box-shadow: 1px 1px 2px #55BBFF;
-}
-
-#root .element:active.selected, #root:active.selected {
-  border-color: #999999;
-  box-shadow: 1px 1px 1px #999999;
-}
-
-</style>
-
-</head>
-
-<body>
-<div id="toolbox">
-  <div class="button-group">
-    <button id="preview-toggle" title="Show Preview">
+  <head>
+    <title>HTML Editor</title>
+    <link href="index.css" rel="stylesheet">
+    <script src="index.js"></script>
+  </head>
+  <body>
+    <div id="toolbox">
+      <div class="button-group">
+        <button id="preview-toggle" title="Show Preview">
+          <img src="./eye-24px.svg">
+        </button>
+      </div>
+      <div class="button-group" id="selection-controls">
+        <div>
+          <button id="append-child">
+            Add DIV
+          </button>
+        </div>
+        <div>
+          <button id="insert-before">
+            Insert DIV
+          </button>
+        </div>
+        <div>
+          <button id="remove">
+            Delete
+          </button>
+        </div>
+      </div>
+      <div class="selection">
+        <h1 id="selection-tag-name"></h1>
+        <h2 id="selection-class-name"></h2>
+      </div>
+    </div>
+    <div class="element" id="root"></div>
+    <button class="hidden" id="floating-preview-toggle" title="Hide Preview">
       <img src="./eye-24px.svg">
     </button>
-  </div>
-  <div class="button-group" id="selection-controls">
-    <div>
-      <button id="append-child">
-        Add DIV
-      </button>
-    </div>
-    <div>
-      <button id="insert-before">
-        Insert DIV
-      </button>
-    </div>
-    <div>
-      <button id="remove">
-        Delete
-      </button>
-    </div>
-  </div>
-  <div class="selection">
-    <h1 id="selection-tag-name"></h1>
-    <h2 id="selection-class-name"></h2>
-  </div>
-</div>
-<div class="element" id="root"></div>
-<button class="hidden" id="floating-preview-toggle" title="Hide Preview">
-  <img src="./eye-24px.svg">
-</button>
-</body>
-
+  </body>
 </html>
