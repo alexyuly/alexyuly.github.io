@@ -123,7 +123,7 @@ button:not(:disabled):active {
   font-weight: normal;
 }
 
-#root {
+#__edit-root {
   background-color: #DDDDDD;
   border: 2px solid #999999;
   box-shadow: 1px 1px 1px #999999;
@@ -135,7 +135,7 @@ button:not(:disabled):active {
   position: relative;
 }
 
-#root .__edit {
+#__edit-root .__edit {
   background-color: #DDDDDD;
   border: 2px solid #999999;
   box-shadow: 1px 1px 1px #999999;
@@ -145,18 +145,18 @@ button:not(:disabled):active {
   padding: 10px;
 }
 
-#root .__edit:active, #root:active {
+#__edit-root .__edit:active, #__edit-root:active {
   border-color: #55BBFF;
   box-shadow: 1px 1px 2px #55BBFF;
 }
 
-#root .__edit.__select, #root.__select {
+#__edit-root .__edit.__select, #__edit-root.__select {
   background-color: #99DDFF;
   border-color: #55BBFF;
   box-shadow: 1px 1px 2px #55BBFF;
 }
 
-#root .__edit:active.__select, #root:active.__select {
+#__edit-root .__edit:active.__select, #__edit-root:active.__select {
   border-color: #999999;
   box-shadow: 1px 1px 1px #999999;
 }

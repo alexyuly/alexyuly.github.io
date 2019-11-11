@@ -4,11 +4,12 @@ window.addEventListener("load", function() {
   let selection;
 
   const appendChildButton = document.querySelector("#append-child");
+  const editRoot = document.querySelector("#__edit-root");
   const floatingPreviewToggleButton = document.querySelector("#floating-preview-toggle");
   const insertBeforeButton = document.querySelector("#insert-before");
   const previewToggleButton = document.querySelector("#preview-toggle");
   const removeButton = document.querySelector("#remove");
-  const root = document.querySelector("#root");
+  const renderRoot = document.querySelector("#__render-root");
   const selectionClassName = document.querySelector("#selection-class-name");
   const selectionControlButtons = document.querySelectorAll("#selection-controls button");
   const selectionTagName = document.querySelector("#selection-tag-name");
@@ -34,9 +35,9 @@ window.addEventListener("load", function() {
     removeSelection();
   });
 
-  root.addEventListener("click", toggleSelection);
+  editRoot.addEventListener("click", toggleSelection);
 
-  updateSelection(root);
+  updateSelection(editRoot);
 
   function appendChildToSelection() {
     selection.appendChild(createElement());
@@ -62,29 +63,25 @@ window.addEventListener("load", function() {
 
   function togglePreview() {
     if (preview) {
-      floatingPreviewToggleButton.remove();
       floatingPreviewToggleButton.classList.add("hidden");
       
-      for (const child of Array.from(document.body.children)) {
+      for (const child of Array.from(renderRoot.children)) {
         child.remove();
-        root.appendChild(child);
+        editRoot.appendChild(child);
       }
 
       document.body.appendChild(toolbox);
-      document.body.appendChild(root);
-      document.body.appendChild(floatingPreviewToggleButton);
+      document.body.appendChild(editRoot);
 
     } else {
       toolbox.remove();
-      root.remove();
-      floatingPreviewToggleButton.remove();
+      editRoot.remove();
       
-      for (const child of Array.from(root.children)) {
+      for (const child of Array.from(editRoot.children)) {
         child.remove();
-        document.body.appendChild(child);
+        renderRoot.appendChild(child);
       }
 
-      document.body.appendChild(floatingPreviewToggleButton);
       floatingPreviewToggleButton.classList.remove("hidden");
     }
 
@@ -111,7 +108,7 @@ window.addEventListener("load", function() {
     selectionClassName.textContent = !selection ? null : selection.className ? '.'.concat(Array.from(selection.classList).join('.')) : "No class";
 
     for (const button of selectionControlButtons) {
-      button.disabled = (selection && selection.id === "root" && button.id !== "append-child") || !selection;
+      button.disabled = (selection && selection.id === "editRoot" && button.id !== "append-child") || !selection;
     }
   }
 });
