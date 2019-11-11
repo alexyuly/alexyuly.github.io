@@ -60,14 +60,20 @@ button:not(:disabled):active {
   border-color: #111111;
   height: 50px;
   left: 10px;
+  opacity: 0.5;
   position: fixed;
   top: 10px;
   width: 50px;
 }
 
+#floating-preview-toggle:hover {
+  opacity: 1;
+}
+
 #floating-preview-toggle:active {
   background-color: #111111;
   border-color: #000000;
+  opacity: 1;
 }
 
 .hidden {
@@ -77,14 +83,12 @@ button:not(:disabled):active {
 #toolbox {
   background-color: #333333;
   border-right: 1px solid #111111;
-  box-shadow: 2px 0 4px #555555;
   color: #EEEEEE;
   display: flex;
   flex: 0 1 250px;
   flex-flow: column nowrap;
   overflow: auto;
   padding: 10px;
-  z-index: 1;
 }
 
 .button-group {
@@ -129,10 +133,9 @@ button:not(:disabled):active {
   margin: 0;
   overflow: auto;
   position: relative;
-  z-index: 0;
 }
 
-#root .element {
+#root .__edit {
   background-color: #DDDDDD;
   border: 2px solid #999999;
   box-shadow: 1px 1px 1px #999999;
@@ -142,18 +145,18 @@ button:not(:disabled):active {
   padding: 10px;
 }
 
-#root .element:active, #root:active {
+#root .__edit:active, #root:active {
   border-color: #55BBFF;
   box-shadow: 1px 1px 2px #55BBFF;
 }
 
-#root .element.selected, #root.selected {
+#root .__edit.__select, #root.__select {
   background-color: #99DDFF;
   border-color: #55BBFF;
   box-shadow: 1px 1px 2px #55BBFF;
 }
 
-#root .element:active.selected, #root:active.selected {
+#root .__edit:active.__select, #root:active.__select {
   border-color: #999999;
   box-shadow: 1px 1px 1px #999999;
 }

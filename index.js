@@ -36,7 +36,7 @@ window.addEventListener("load", function() {
 
   root.addEventListener("click", toggleSelection);
 
-  updateSelection(null);
+  updateSelection(root);
 
   function appendChildToSelection() {
     selection.appendChild(createElement());
@@ -45,7 +45,7 @@ window.addEventListener("load", function() {
   function createElement() {
     const element = document.createElement("div");
 
-    element.className = "element";
+    element.className = "__edit";
     element.addEventListener("click", toggleSelection);
 
     return element;
@@ -98,13 +98,13 @@ window.addEventListener("load", function() {
 
   function updateSelection(newSelection) {
     if (selection) {
-      selection.classList.remove("selected");
+      selection.classList.remove("__select");
     }
     
     selection = newSelection;
 
     if (selection) {
-      selection.classList.add("selected");
+      selection.classList.add("__select");
     }
 
     selectionTagName.textContent = selection ? selection.tagName.concat(selection.id ? '#'.concat(selection.id) : '') : "No selection";
