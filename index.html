@@ -11,27 +11,36 @@ window.addEventListener("load", function() {
 
   let preview = false;
   let selection;
-  let root = document.querySelector("#root");
-  let toolbox = document.querySelector("#toolbox");
 
-  document.querySelector("#append-child").addEventListener("click", function(event) {
+  const appendChildButton = document.querySelector("#append-child");
+  const floatingPreviewToggleButton = document.querySelector("#floating-preview-toggle");
+  const insertBeforeButton = document.querySelector("#insert-before");
+  const previewToggleButton = document.querySelector("#preview-toggle");
+  const removeButton = document.querySelector("#remove");
+  const root = document.querySelector("#root");
+  const selectionClassName = document.querySelector("#selection-class-name");
+  const selectionControlButtons = document.querySelectorAll("#selection-controls button");
+  const selectionTagName = document.querySelector("#selection-tag-name");
+  const toolbox = document.querySelector("#toolbox");
+
+  appendChildButton.addEventListener("click", function(event) {
     appendChildToSelection();
   });
 
-  document.querySelector("#remove").addEventListener("click", function(event) {
-    removeSelection();
-  });
-
-  document.querySelector("#floating-preview-toggle").addEventListener("click", function(event) {
+  floatingPreviewToggleButton.addEventListener("click", function(event) {
     togglePreview();
   });
 
-  document.querySelector("#insert-before").addEventListener("click", function(event) {
+  insertBeforeButton.addEventListener("click", function(event) {
     insertBeforeSelection();
   });
 
-  document.querySelector("#preview-toggle").addEventListener("click", function(event) {
+  previewToggleButton.addEventListener("click", function(event) {
     togglePreview();
+  });
+
+  removeButton.addEventListener("click", function(event) {
+    removeSelection();
   });
 
   root.addEventListener("click", function(event) {
@@ -43,9 +52,8 @@ window.addEventListener("load", function() {
 
   function togglePreview() {
     if (preview) {
-      const floatingPreviewToggle = document.querySelector("#floating-preview-toggle");
-      floatingPreviewToggle.remove();
-      floatingPreviewToggle.classList.add("hidden");
+      floatingPreviewToggleButton.remove();
+      floatingPreviewToggleButton.classList.add("hidden");
       
       for (const child of Array.from(document.body.children)) {
         child.remove();
@@ -54,24 +62,20 @@ window.addEventListener("load", function() {
 
       document.body.appendChild(toolbox);
       document.body.appendChild(root);
-      document.body.appendChild(floatingPreviewToggle);
+      document.body.appendChild(floatingPreviewToggleButton);
 
     } else {
-      const floatingPreviewToggle = document.querySelector("#floating-preview-toggle");
-      root = document.querySelector("#root");
-      toolbox = document.querySelector("#toolbox");
-
       toolbox.remove();
       root.remove();
-      floatingPreviewToggle.remove();
+      floatingPreviewToggleButton.remove();
       
       for (const child of Array.from(root.children)) {
         child.remove();
         document.body.appendChild(child);
       }
 
-      document.body.appendChild(floatingPreviewToggle);
-      floatingPreviewToggle.classList.remove("hidden");
+      document.body.appendChild(floatingPreviewToggleButton);
+      floatingPreviewToggleButton.classList.remove("hidden");
     }
 
     preview = !preview;
@@ -88,10 +92,10 @@ window.addEventListener("load", function() {
       selection.classList.add("selected");
     }
 
-    document.querySelector("#selection-tag-name").textContent = selection ? selection.tagName.concat(selection.id ? '#'.concat(selection.id) : '') : "No selection";
-    document.querySelector("#selection-class-name").textContent = !selection ? null : selection.className ? '.'.concat(Array.from(selection.classList).join('.')) : "No class";
+    selectionTagName.textContent = selection ? selection.tagName.concat(selection.id ? '#'.concat(selection.id) : '') : "No selection";
+    selectionClassName.textContent = !selection ? null : selection.className ? '.'.concat(Array.from(selection.classList).join('.')) : "No class";
 
-    for (const button of document.querySelectorAll("#selection-controls button")) {
+    for (const button of selectionControlButtons) {
       button.disabled = (selection && selection.id === "root" && button.id !== "append-child") || !selection;
     }
   }
@@ -167,7 +171,6 @@ button {
 button:disabled {
   color: #999999;
   cursor: initial;
-  transition: color 0.25s ease-out;
 }
 
 button:not(:disabled):hover {
