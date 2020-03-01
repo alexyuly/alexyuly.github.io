@@ -1,6 +1,57 @@
 html {
-  font: 15px sans-serif;
+  background: #111111;
+  color: #eeeeee;
+  font: 16px sans-serif;
   user-select: none;
+}
+
+body {
+  margin: auto;
+  max-width: 800px;
+}
+
+#root {
+  margin: 10%;
+}
+
+header {
+  background: #111111;
+  height: 33%;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+  padding: 0.5rem;
+  position: sticky;
+  top: 0;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+  margin-top: 0.25rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: normal;
+  margin-bottom: 0.25rem;
+  margin-top: 0.25rem;
+}
+
+p {
+  font-size: 1rem;
+  font-weight: normal;
+  margin-bottom: 0.25rem;
+  margin-top: 0.25rem;
+}
+
+main {
+  padding: 0.5rem;
+}
+
+section {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 
 
