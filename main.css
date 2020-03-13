@@ -31,6 +31,7 @@ header {
   background: linear-gradient(#282828 95%, transparent);
   color: #dddddd;
   display: flex;
+  flex: 0 0 auto;
   flex-flow: column nowrap;
   margin-bottom: 2rem;
   margin-top: 2rem;
